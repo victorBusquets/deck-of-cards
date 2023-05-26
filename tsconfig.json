@@ -22,7 +22,20 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@environment": ["src/environments/environment.ts"],
+      "@models/*": ["src/app/models/*"],
+      "@interfaces/*": ["src/app/interfaces/*"],
+      "@constants/*": ["src/app/constants/*"],
+      "@components/*": ["src/app/components/*"],
+      "@directives/*": ["src/app/directives/*"],
+      "@pages/*": ["src/app/pages/*"],
+      "@pipes/*": ["src/app/pipes/*"],
+      "@services/*": ["src/app/services/*"],
+      "@mock/*": ["src/app/mock/*"],
+      "@utils/*": ["src/app/utils/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
