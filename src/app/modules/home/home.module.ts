@@ -5,6 +5,6 @@ import { CardComponent } from "@components/card/card.component";
 
 @NgModule({
     declarations: [HomeComponent],
-    imports: [HomeRoutingModule, CardComponent]
+    imports: [HomeRoutingModule, CardComponent],
 })
 export class HomeModule { }
