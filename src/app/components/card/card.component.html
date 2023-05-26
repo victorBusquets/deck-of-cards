@@ -1,1 +1,4 @@
-<p>card works!</p>
+<div class="card" [ngClass]="{'card-visible': visible}" (click)="click()">
+    <img class="card-back" alt="Back card image" [attr.src]="backCardImg">
+    <img class="card-content" alt="Card image" [attr.src]="img">
+</div>

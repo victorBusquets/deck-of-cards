@@ -1,0 +1,28 @@
+.card{
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    
+    .card-content, .card-back{
+        transition: all .5s;
+    }
+    .card-back{
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: rotateY(0deg);
+    }
+    .card-content{
+        transition-delay: .2s;
+        transform: rotateY(90deg);   
+    }
+
+    &.card-visible{
+        .card-content{
+            transform: rotateY(0deg);   
+        }
+        .card-back{
+            transform: rotateY(90deg);   
+        }
+    }
+}
