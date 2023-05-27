@@ -1,5 +1,10 @@
 export const APP_ROUTE_FRAGMENTS = {
-    home: ''
+    home: '',
+    gameList: 'game-list',
+    blackjack: 'blackjack',
+    guessSuit: 'guess-suit'
 };
 
-export const APP_ROUTE_IDS = {};
+export const APP_ROUTE_IDS = {
+    deckId: '/:deckId'
+};
