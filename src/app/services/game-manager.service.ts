@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GameModel } from '@models/game.class';
+import { GameType } from '../types/game.type';
 
 const GAME_LS_KEY: string = 'GAME_LS_KEY';
 
@@ -22,7 +23,7 @@ export class GameManagerService {
     return gameList;
   }
 
-  getGameListByType(type: 'blackjack' | 'guess-suit'): GameModel[] {
+  getGameListByType(type: GameType): GameModel[] {
     const gameList: GameModel[] = this.getGameList();
 
     return gameList.filter((game)=>game.type === type);
@@ -34,7 +35,7 @@ export class GameManagerService {
     return gameList.find((game)=>game.deckId === deckId);
   }
 
-  createGame(deckId: string, type:'blackjack' | 'guess-suit', remainingCards: number): GameModel {
+  createGame(deckId: string, type: GameType, remainingCards: number): GameModel {
     const gameList: GameModel[] = this.getGameList();
     const newGame: GameModel = new GameModel({type, deckId, remainingCards});
     gameList.unshift(newGame);

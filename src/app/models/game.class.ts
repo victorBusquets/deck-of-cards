@@ -1,5 +1,7 @@
+import { GameType } from "../types/game.type";
+
 export class GameModel {
-    type: 'blackjack' | 'guess-suit' = 'blackjack';
+    type: GameType = 'blackjack';
     deckId: string = '';
     wins: number = 0;
     losses: number = 0;
