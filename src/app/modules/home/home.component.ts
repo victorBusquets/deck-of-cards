@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { GameManagerService } from '@services/game-manager.service';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +6,5 @@ import { GameManagerService } from '@services/game-manager.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  constructor(private gameManagerService: GameManagerService) {
-    console.log(this.gameManagerService)
-  }
+
 }

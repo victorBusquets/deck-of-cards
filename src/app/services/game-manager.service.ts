@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GameInterface } from '@interfaces/game.interface';
+import { GameModel } from '@models/game.class';
 
 const GAME_LS_KEY: string = 'GAME_LS_KEY';
 
@@ -7,9 +7,9 @@ const GAME_LS_KEY: string = 'GAME_LS_KEY';
   providedIn: 'root'
 })
 export class GameManagerService {
-  getGameList(): GameInterface[] {
+  getGameList(): GameModel[] {
     const gameListString: string | null = localStorage.getItem(GAME_LS_KEY);
-    let gameList: GameInterface[] = [];
+    let gameList: GameModel[] = [];
 
     if(gameListString) {
       try {
@@ -22,32 +22,28 @@ export class GameManagerService {
     return gameList;
   }
 
-  getGameListByType(type: 'blackjack' | 'guesssuit'): GameInterface[] {
-    const gameList: GameInterface[] = this.getGameList();
+  getGameListByType(type: 'blackjack' | 'guesssuit'): GameModel[] {
+    const gameList: GameModel[] = this.getGameList();
 
     return gameList.filter((game)=>game.type === type);
   }
 
-  getGameDetail(deckId: string): GameInterface | undefined {
-    const gameList: GameInterface[] = this.getGameList();
+  getGameDetail(deckId: string): GameModel | undefined {
+    const gameList: GameModel[] = this.getGameList();
 
     return gameList.find((game)=>game.deckId === deckId);
   }
 
-  createGame(deckId: string, type:'blackjack' | 'guesssuit' ): void {
-    const gameList: GameInterface[] = this.getGameList();
-    const newGame: GameInterface = {
-      type,
-      deckId,
-      wins: 0,
-      losses: 0
-    };
+  createGame(deckId: string, type:'blackjack' | 'guesssuit', remainingCards: number): GameModel {
+    const gameList: GameModel[] = this.getGameList();
+    const newGame: GameModel = new GameModel({type, deckId, remainingCards});
     gameList.unshift(newGame);
     this.saveGameList(gameList);
+    return newGame;
   }
 
-  editGame(game: GameInterface): void {
-    const gameList: GameInterface[] = this.getGameList();
+  editGame(game: GameModel): void {
+    const gameList: GameModel[] = this.getGameList();
     const index: number = gameList.findIndex((gameItem)=>gameItem.deckId === game.deckId);
     
     if(index > -1) {
@@ -57,14 +53,14 @@ export class GameManagerService {
   }
 
   deleteGame(deckId: string): void {
-    const gameList: GameInterface[] = this.getGameList();
+    const gameList: GameModel[] = this.getGameList();
     const index: number = gameList.findIndex((game)=>game.deckId === deckId);
     gameList.splice(index, 1);
     
     this.saveGameList(gameList);
   }
 
-  saveGameList(gameList: GameInterface[]): void {
+  saveGameList(gameList: GameModel[]): void {
     const gameListString: string = JSON.stringify(gameList);
     localStorage.setItem(GAME_LS_KEY, gameListString);
   }
