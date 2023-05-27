@@ -11,10 +11,6 @@ import { BACK_CARD_IMG } from '@constants/common.const';
 })
 export class CardComponent {
   @Input() img!: string;
-  @Input() visible!: boolean;
+  @Input() visible: boolean = false;
   readonly backCardImg: string = BACK_CARD_IMG;
-
-  click(){
-    this.visible = true;
-  }
 }

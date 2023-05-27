@@ -1,0 +1,25 @@
+$card-table-max-width: 225px;
+
+.page-title{
+    font-weight: 800;   
+}
+
+.game-option{
+    
+    app-card{
+        cursor: pointer;
+        display: inline-block;
+        width: 60%;
+        margin: 0 auto;
+
+        @media only screen and (max-width: 768px) {
+            width: 100%;
+            max-width: $card-table-max-width;
+        }
+    }
+
+    .game-type{
+        font-size: 22px;
+        font-weight: 800;
+    }
+}

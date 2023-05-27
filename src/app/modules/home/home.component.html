@@ -1,7 +1,12 @@
-<p>Home works!</p>
-<app-card img="https://deckofcardsapi.com/static/img/2H.png" [visible]="false"></app-card>
-<app-card img="https://deckofcardsapi.com/static/img/3H.png" [visible]="false"></app-card>
-<app-card img="https://deckofcardsapi.com/static/img/4H.png" [visible]="false"></app-card>
-<app-card img="https://deckofcardsapi.com/static/img/5H.png" [visible]="false"></app-card>
-<app-card img="https://deckofcardsapi.com/static/img/6H.png" [visible]="false"></app-card>
-<app-card img="https://deckofcardsapi.com/static/img/7H.png" [visible]="false"></app-card>
+<div class="container text-center">
+    <h3 class="page-title">Selecciona el modo de juego</h3>
+
+    <div class="row game-selector">
+        <div class="game-option p-4 col-md-6 col-12"
+            *ngFor="let gameLink of gameLinks; trackBy: trackByIndex">
+            
+            <app-card [routerLink]="gameLink.link"></app-card>
+            <p class="m-0 game-type">{{gameLink.title}}</p>
+        </div>
+    </div>
+</div>
