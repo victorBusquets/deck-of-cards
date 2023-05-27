@@ -6,5 +6,6 @@ export const APP_ROUTE_FRAGMENTS = {
 };
 
 export const APP_ROUTE_IDS = {
-    deckId: '/:deckId'
+    deckId: '/:deckId',
+    gameType: '/:gameType'
 };

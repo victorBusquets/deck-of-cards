@@ -1,5 +1,5 @@
 export class GameModel {
-    type: 'blackjack' | 'guesssuit' = 'blackjack';
+    type: 'blackjack' | 'guess-suit' = 'blackjack';
     deckId: string = '';
     wins: number = 0;
     losses: number = 0;

@@ -6,7 +6,7 @@ const routes: Routes = [{
     path: APP_ROUTE_FRAGMENTS.home,
     loadChildren: () => import('./modules/home/home.module').then((m) => m.HomeModule),
   }, {
-    path: APP_ROUTE_FRAGMENTS.gameList,
+    path: APP_ROUTE_FRAGMENTS.gameList + APP_ROUTE_IDS.gameType,
     loadChildren: () => import('./modules/game-list/game-list.module').then((m) => m.GameListModule),
   }, {
     path: APP_ROUTE_FRAGMENTS.blackjack + APP_ROUTE_IDS.deckId,

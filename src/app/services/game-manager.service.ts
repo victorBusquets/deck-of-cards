@@ -22,7 +22,7 @@ export class GameManagerService {
     return gameList;
   }
 
-  getGameListByType(type: 'blackjack' | 'guesssuit'): GameModel[] {
+  getGameListByType(type: 'blackjack' | 'guess-suit'): GameModel[] {
     const gameList: GameModel[] = this.getGameList();
 
     return gameList.filter((game)=>game.type === type);
@@ -34,7 +34,7 @@ export class GameManagerService {
     return gameList.find((game)=>game.deckId === deckId);
   }
 
-  createGame(deckId: string, type:'blackjack' | 'guesssuit', remainingCards: number): GameModel {
+  createGame(deckId: string, type:'blackjack' | 'guess-suit', remainingCards: number): GameModel {
     const gameList: GameModel[] = this.getGameList();
     const newGame: GameModel = new GameModel({type, deckId, remainingCards});
     gameList.unshift(newGame);
