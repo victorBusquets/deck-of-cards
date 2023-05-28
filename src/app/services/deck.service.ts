@@ -14,13 +14,13 @@ export class DeckService {
   constructor(private httpClient: HttpClient) {}
 
   generateDeck(deckCount: number = 1): Observable<DeckResponseInterface> {
-    return this.httpClient.post<DeckResponseInterface>(API_ROUTES.generateDeck, {deckCount});
+    return this.httpClient.get<DeckResponseInterface>(API_ROUTES.generateDeck, {params: {deck_count: deckCount}});
   }
 
   drawCards(deckId: number, count: number): Observable<DrawCardsResponseInterface> {
     const drawCardsUrl: string = `${API_ROUTES.base}/${deckId}${API_ROUTES_FRAGMENTS.draw}`;
 
-    return this.httpClient.post<DrawCardsResponseInterface>(drawCardsUrl, {count});
+    return this.httpClient.get<DrawCardsResponseInterface>(drawCardsUrl, {params: {count}});
   }
 
   shuffle(deckId: number, remaining: boolean = false): Observable<DeckResponseInterface> {
@@ -31,25 +31,25 @@ export class DeckService {
       params['remaining'] = remaining;
     }
 
-    return this.httpClient.post<DeckResponseInterface>(shuffleUrl, params);
+    return this.httpClient.get<DeckResponseInterface>(shuffleUrl, {params});
   }
 
   addCardsToPile(deckId: string, pileName: string, cards: string[]): Observable<PileResponseInterface> {
     const addCardsUrl: string = `${API_ROUTES.base}/${deckId}${API_ROUTES_FRAGMENTS.pile}/${pileName}${API_ROUTES_FRAGMENTS.add}`;
     const formattedCards = cards.join(',');
 
-    return this.httpClient.post<PileResponseInterface>(addCardsUrl, {cards: formattedCards});
+    return this.httpClient.get<PileResponseInterface>(addCardsUrl, {params: {cards: formattedCards}});
   }
 
   shufflePile(deckId: string, pileName: string): Observable<PileResponseInterface> {
     const addCardsUrl: string = `${API_ROUTES.base}/${deckId}${API_ROUTES_FRAGMENTS.pile}/${pileName}${API_ROUTES_FRAGMENTS.shuffle}`;
 
-    return this.httpClient.post<PileResponseInterface>(addCardsUrl, {});
+    return this.httpClient.get<PileResponseInterface>(addCardsUrl, {});
   }
 
   listPileCards(deckId: string, pileName: string): Observable<PileListResponseInterface> {
     const listPileUrl: string = `${API_ROUTES.base}/${deckId}${API_ROUTES_FRAGMENTS.pile}/${pileName}${API_ROUTES_FRAGMENTS.list}`;
 
-    return this.httpClient.post<PileListResponseInterface>(listPileUrl, {});
+    return this.httpClient.get<PileListResponseInterface>(listPileUrl, {});
   }
 }
