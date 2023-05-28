@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { DELETE_SVG } from '@constants/common.const';
 import { GameModel } from '@models/game.class';
 
 @Component({
@@ -13,6 +14,7 @@ import { GameModel } from '@models/game.class';
 export class GameItemComponent {
   @Input() game!: GameModel;
   @Output() deleteAction: EventEmitter<string> = new EventEmitter<string>();
+  deleteSvg: string = DELETE_SVG;
 
   deleteGame(event: Event, deckId: string): void {
     event.preventDefault();

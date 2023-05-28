@@ -1,4 +1,4 @@
-<h3 class="page-title">
+<h3 class="page-title sticky top-sticky">
   <span>Listado de partidas de </span>
   <span class="game-type">'{{gameTitle}}'</span>
 </h3>
@@ -9,7 +9,9 @@
   </ng-container>
 </div>
 
-<button (click)="showModal()" type="button" class="btn btn-primary mt-4">Nueva partida</button>
+<div class="sticky bottom-sticky py-2 mt-2">
+  <button (click)="showModal()" type="button" class="btn btn-primary">Nueva partida</button>
+</div>
 
 <ng-template #empty>
   <div class="list-group-item list-group-item-action flex-column align-items-start disabled">

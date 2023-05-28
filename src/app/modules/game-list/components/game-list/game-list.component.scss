@@ -1,3 +1,18 @@
 .game-type{
     font-style: italic;
 }
+
+.sticky{
+    background: white;
+    position: sticky;
+    z-index: 3;
+    width: 100%;
+
+    &.top-sticky{
+        top: 0;
+    }
+    
+    &.bottom-sticky{
+        bottom: 0;
+    }
+}

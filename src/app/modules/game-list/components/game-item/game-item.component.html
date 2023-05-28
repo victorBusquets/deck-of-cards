@@ -1,7 +1,7 @@
 <a class="list-group-item list-group-item-action align-items-start" [routerLink]="['/', game.type, game.deckId]">
     <div class="d-block d-md-flex w-100 justify-content-between">
-        <div (click)="deleteGame($event, game.deckId)">
-            Delete
+        <div class="d-flex flex-column align-items-center align-self-center" (click)="deleteGame($event, game.deckId)">
+            <em class="delete-icon" [ngStyle]="{'background-image': 'url('+deleteSvg+')'}"></em>
         </div>
         <div class="d-flex flex-column align-items-center align-self-center">
             <h5 class="mb-1 d-flex flex-row">{{game.name}}</h5>
