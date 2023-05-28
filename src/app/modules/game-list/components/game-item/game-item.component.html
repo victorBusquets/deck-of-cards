@@ -9,8 +9,8 @@
             <small class="d-flex flex-row">Ultimo cambio {{ game.lastChange | date: 'dd/MM/yyyy HH:mm' }}</small>
         </div>
         <div class="mt-4 mt-md-0">
-            <p class="marker wins">{{game.wins}} victorias</p>
-            <p class="marker losses">{{game.losses}} derrotas</p>
+            <p class="badge bg-success">{{game.wins}} victorias</p>
+            <p class="badge bg-danger">{{game.losses}} derrotas</p>
         </div>
     </div>
 </a>

@@ -13,6 +13,7 @@ import { GameManagerService } from '@services/game-manager.service';
 import { takeUntil } from 'rxjs';
 import { GameType } from 'src/app/types/game.type';
 import { GameItemComponent } from '../game-item/game-item.component';
+import { SpinnerDirective } from '@directives/spinner/spinner.directive';
 
 @Component({
   standalone: true,
@@ -20,7 +21,8 @@ import { GameItemComponent } from '../game-item/game-item.component';
     CommonModule,
     DialogComponent,
     FormsModule,
-    GameItemComponent
+    GameItemComponent,
+    SpinnerDirective
   ],
   selector: 'app-game-list',
   templateUrl: './game-list.component.html',
@@ -32,6 +34,7 @@ export class GameListComponent extends SubscriptionsBaseComponent {
   gameType!: GameType;
   games!: GameModel[];
   gameName: string = '';
+  loading: boolean = false;
   trackByIndex = TRACK_BY_INDEX_FUNCTION;
 
   constructor(
@@ -67,15 +70,17 @@ export class GameListComponent extends SubscriptionsBaseComponent {
 
   createGame(): void {
     const numberOfDecks: number = GAME_NUMBER_OF_DECKS[this.gameType];
+    this.loading = true;
 
     this.deckService.generateDeck(numberOfDecks)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((deck)=>{
         const game: GameModel = this.gameManagerService
           .createGame(deck.deck_id, this.gameName, this.gameType, deck.remaining);
+        this.loading = false;
         this.closeModal();
         this.goToGameDetail(game);
-      })
+      });
   }
 
   private goToGameDetail(game: GameModel): void {

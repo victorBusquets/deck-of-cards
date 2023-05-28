@@ -14,7 +14,7 @@
 <ng-template #empty>
   <div class="list-group-item list-group-item-action flex-column align-items-start disabled">
     <h5 class="my-4 py-2 text-center">
-      <span>Todavia no has jugado ninguna partida a </span>
+      <span>Todavia no has jugado ninguna partida de </span>
       <span class="game-type">'{{gameTitle}}'</span>
     </h5>
   </div>
@@ -26,11 +26,16 @@
     <input type="text" class="form-control" placeholder="Nombre de la partida" [(ngModel)]="gameName">
   </div>
   <div dialog-actions class="d-flex justify-content-between">
-    <button type="button" class="btn btn-danger" (click)="closeModal()">
+    <button type="button" class="btn btn-danger" [disabled]="loading" (click)="closeModal()">
       Cancelar
     </button>
-    <button type="button" class="btn btn-success" [disabled]="!gameName" (click)="createGame()">
-      Crear partida
+    <button type="button"
+      class="btn btn-success"
+      [disabled]="!gameName || loading"
+      (click)="createGame()">
+      <span *appSpinner="loading">
+        Crear partida
+      </span>
     </button>
   </div>
 </dialog>

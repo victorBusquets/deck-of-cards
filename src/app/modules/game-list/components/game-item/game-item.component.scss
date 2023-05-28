@@ -1,16 +1,8 @@
-.marker{
-    color: white;
+.badge{
+    display: block;
+    margin: 5px 0;
     padding: 4px 10px;
     font-size: 17px;
     font-weight: 600;
     text-transform: uppercase;
-    margin: 2.5px 0;
-    
-    &.wins{
-        background: var(--succes-color);
-    }
-
-    &.losses{
-        background: var(--error-color);
-    }
 }
