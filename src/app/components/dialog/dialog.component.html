@@ -1,0 +1,12 @@
+<div class="default-section">
+  <div class="dialog-close" (click)="closeModal()">
+    <span>&times;</span>
+  </div>
+  <div class="dialog-content">
+    <ng-content select="[dialog-content]"></ng-content>
+  </div>
+  <div class="dialog-actions">
+    <ng-content select="[dialog-actions]"></ng-content>
+  </div>
+</div>
+<div class="shadow" (click)="shadowClick()"></div>
