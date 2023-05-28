@@ -5,25 +5,8 @@
 
 <div class="list-group">
   <ng-container *ngIf="games?.length; else empty">
-      <a [routerLink]="['/', game.type, game.deckId]"
-          class="list-group-item list-group-item-action align-items-start"
-          *ngFor="let game of games; trackBy: trackByIndex">
-        <div class="d-block d-md-flex w-100 justify-content-between">
-          <div (click)="deleteGame($event, game.deckId)">
-            Delete
-          </div>
-          <div class="d-flex flex-column align-items-center align-self-center">
-            <h5 class="mb-1 d-flex flex-row">{{game.name}}</h5>
-            <h6 class="mb-1 d-flex flex-row">{{game.remainingCards}} cartas restantes</h6>
-            <small class="d-flex flex-row">Ultimo cambio {{ game.lastChange | date: 'dd/MM/yyyy HH:mm' }}</small>
-          </div>
-          <div class="mt-4 mt-md-0">
-            <p class="marker wins">{{game.wins}} victorias</p>
-            <p class="marker losses">{{game.losses}} derrotas</p>
-          </div>
-        </div>
-      </a>
-    </ng-container>
+    <app-game-item [game]="game" (deleteAction)="deleteGame($event)" *ngFor="let game of games; trackBy: trackByIndex"></app-game-item>
+  </ng-container>
 </div>
 
 <button (click)="showModal()" type="button" class="btn btn-primary mt-4">Nueva partida</button>

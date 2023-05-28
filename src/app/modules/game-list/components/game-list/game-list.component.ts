@@ -1,4 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogComponent } from '@components/dialog/dialog.component';
 import { SubscriptionsBaseComponent } from '@components/subscriptions-base/subscriptions-base.component';
@@ -10,8 +12,16 @@ import { DeckService } from '@services/deck.service';
 import { GameManagerService } from '@services/game-manager.service';
 import { takeUntil } from 'rxjs';
 import { GameType } from 'src/app/types/game.type';
+import { GameItemComponent } from '../game-item/game-item.component';
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    DialogComponent,
+    FormsModule,
+    GameItemComponent
+  ],
   selector: 'app-game-list',
   templateUrl: './game-list.component.html',
   styleUrls: ['./game-list.component.scss']
@@ -41,9 +51,7 @@ export class GameListComponent extends SubscriptionsBaseComponent {
     });
   }
 
-  deleteGame(event: Event, deckId: string): void {
-    event.preventDefault();
-    event.stopPropagation();
+  deleteGame(deckId: string): void {
     this.gameManagerService.deleteGame(deckId);
     this.getGames();
   }

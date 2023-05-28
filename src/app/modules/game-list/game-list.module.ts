@@ -1,23 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { GameListComponent } from './game-list.component';
 import { GameListRoutingModule } from './game-list-routing.module';
-import { RouterModule } from '@angular/router';
-import { DialogComponent } from '@components/dialog/dialog.component';
-import { FormsModule } from '@angular/forms';
-
-
+import { GameListComponent } from './components/game-list/game-list.component';
 
 @NgModule({
-  declarations: [
-    GameListComponent
-  ],
   imports: [
     GameListRoutingModule,
-    RouterModule,
-    CommonModule,
-    DialogComponent,
-    FormsModule
+    GameListComponent,
   ]
 })
 export class GameListModule { }
