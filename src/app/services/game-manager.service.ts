@@ -35,9 +35,9 @@ export class GameManagerService {
     return gameList.find((game)=>game.deckId === deckId);
   }
 
-  createGame(deckId: string, type: GameType, remainingCards: number): GameModel {
+  createGame(deckId: string, name: string, type: GameType, remainingCards: number): GameModel {
     const gameList: GameModel[] = this.getGameList();
-    const newGame: GameModel = new GameModel({type, deckId, remainingCards});
+    const newGame: GameModel = new GameModel({type, deckId, remainingCards, name});
     gameList.unshift(newGame);
     this.saveGameList(gameList);
     return newGame;
@@ -48,6 +48,7 @@ export class GameManagerService {
     const index: number = gameList.findIndex((gameItem)=>gameItem.deckId === game.deckId);
     
     if(index > -1) {
+      game.lastChange = new Date();
       gameList[index] = game;
       this.saveGameList(gameList);
     }

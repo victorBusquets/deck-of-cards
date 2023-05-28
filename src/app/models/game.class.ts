@@ -6,6 +6,8 @@ export class GameModel {
     wins: number = 0;
     losses: number = 0;
     remainingCards: number = 0;
+    lastChange: Date = new Date();
+    name: string = '';
     
     constructor(game?: Partial<GameModel>) {
         this.type = game?.type ?? this.type;
@@ -13,5 +15,7 @@ export class GameModel {
         this.wins = game?.wins ?? this.wins;
         this.losses = game?.losses ?? this.losses;
         this.remainingCards = game?.remainingCards ?? this.remainingCards;
+        this.lastChange = game?.lastChange ?? this.lastChange;
+        this.name = game?.name ?? this.name;
     }
 }
