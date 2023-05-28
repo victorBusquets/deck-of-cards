@@ -1,11 +1,11 @@
-<div class="default-section">
+<div class="card dialog p-4">
   <div class="dialog-close" (click)="closeModal()">
     <span>&times;</span>
   </div>
   <div class="dialog-content">
     <ng-content select="[dialog-content]"></ng-content>
   </div>
-  <div class="dialog-actions">
+  <div class="dialog-actions mt-4">
     <ng-content select="[dialog-actions]"></ng-content>
   </div>
 </div>

@@ -50,6 +50,7 @@ export class GameManagerService {
     if(index > -1) {
       game.lastChange = new Date();
       gameList[index] = game;
+      gameList.sort(this.sortByDate);
       this.saveGameList(gameList);
     }
   }
@@ -65,5 +66,9 @@ export class GameManagerService {
   saveGameList(gameList: GameModel[]): void {
     const gameListString: string = JSON.stringify(gameList);
     localStorage.setItem(GAME_LS_KEY, gameListString);
+  }
+
+  private sortByDate(gameA: GameModel, gameB: GameModel): number {
+    return gameB.lastChange.valueOf() - gameA.lastChange.valueOf();
   }
 }

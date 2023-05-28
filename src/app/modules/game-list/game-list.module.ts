@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { GameListComponent } from './game-list.component';
 import { GameListRoutingModule } from './game-list-routing.module';
 import { RouterModule } from '@angular/router';
+import { DialogComponent } from '@components/dialog/dialog.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -13,7 +15,9 @@ import { RouterModule } from '@angular/router';
   imports: [
     GameListRoutingModule,
     RouterModule,
-    CommonModule
+    CommonModule,
+    DialogComponent,
+    FormsModule
   ]
 })
 export class GameListModule { }
