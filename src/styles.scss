@@ -1,6 +1,17 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
+:root{
+    --succes-color:  #1ea21e;
+    --error-color:  #a50909;
+}
+
 .page-title{
     font-weight: 800;   
     margin-bottom: 20px;
+}
+
+dialog {
+    background: unset;
+    border: unset;
+    padding: unset;
 }

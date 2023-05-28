@@ -11,10 +11,10 @@
     margin: 2.5px 0;
     
     &.wins{
-        background: #1ea21e;
+        background: var(--succes-color);
     }
 
     &.losses{
-        background: #a50909;
+        background: var(--error-color);
     }
 }
