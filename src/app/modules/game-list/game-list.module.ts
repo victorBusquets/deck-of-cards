@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameListComponent } from './game-list.component';
 import { GameListRoutingModule } from './game-list-routing.module';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -11,6 +12,7 @@ import { GameListRoutingModule } from './game-list-routing.module';
   ],
   imports: [
     GameListRoutingModule,
+    RouterModule,
     CommonModule
   ]
 })
