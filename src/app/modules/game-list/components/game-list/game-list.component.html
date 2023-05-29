@@ -22,7 +22,7 @@
   </div>
 </ng-template>
 
-<dialog appDialog #createGameDialog>
+<dialog appDialog #createGameDialog (close)="closeModal()">
   <div dialog-content>
     <h4 class="page-title">Introduce un nombre para la partida</h4>
     <input type="text" class="form-control" placeholder="Nombre de la partida" [(ngModel)]="gameName">

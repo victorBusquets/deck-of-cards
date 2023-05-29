@@ -34,7 +34,7 @@ export class GameListComponent extends SubscriptionsBaseComponent {
   gameType!: GameType;
   games!: GameModel[];
   gameName: string = '';
-  loading: boolean = false;
+  loading: boolean = true;
   trackByIndex = TRACK_BY_INDEX_FUNCTION;
 
   constructor(

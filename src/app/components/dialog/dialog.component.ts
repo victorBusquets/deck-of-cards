@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Output } from '@angular/core';
 
 @Component({
   standalone: true,
@@ -10,6 +10,8 @@ import { ChangeDetectionStrategy, Component, ElementRef } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogComponent {
+  @Output() close: EventEmitter<void> = new EventEmitter<void>();
+  
   constructor(private element: ElementRef) {}
 
   showModal() {
@@ -18,9 +20,5 @@ export class DialogComponent {
 
   closeModal(): void {
     this.element.nativeElement.close();
-  }
-
-  shadowClick(): void {
-    this.closeModal();
   }
 }

@@ -1,8 +1,8 @@
 <h3 class="page-title" *ngIf="game">Partida {{game.name}}</h3>
 
 <div class="row">
-    <p class="badge col-6 bg-success">{{game.wins}} victorias</p>
-    <p class="badge col-6 bg-danger">{{game.losses}} derrotas</p>
+    <p class="badge col-6 bg-success" (click)="showModal(pileNames['wins'])">Ver {{game.wins}} victorias</p>
+    <p class="badge col-6 bg-danger" (click)="showModal(pileNames['losses'])">Ver {{game.losses}} derrotas</p>
 </div>
 
 <h5 class="page-title">Selecciona que carta va a salir</h5>
@@ -35,3 +35,33 @@
     <button (click)="shuffleCards()" type="button" class="btn btn-primary">Barajar cartas</button>
     <button (click)="playAgain()" type="button" class="btn btn-primary">Volver a jugar</button>
 </div>
+
+<dialog appDialog #previousCardsDialog (close)="closeModal()">
+    <div dialog-content>
+        <h4 class="page-title" *ngIf="selectedPileName === pileNames['wins']">
+            Partidas ganadas
+        </h4>
+        <h4 class="page-title" *ngIf="selectedPileName === pileNames['losses']">
+            Partidas perdidas
+        </h4>
+        <ng-container *appSpinner="showLoading">
+            <div *ngIf="previousCards?.length; else empty" class="row previous-cards">
+                <div class="col-4" *ngFor="let previousCard of previousCards; trackBy: trackByIndex">
+                    <app-card [animation]="false" [visible]="true" [img]="previousCard.image"></app-card>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <div dialog-actions class="d-flex justify-content-end">
+        <button type="button" class="btn btn-success" (click)="closeModal()">Cerrar</button>
+    </div>
+</dialog>
+
+<ng-template #empty>
+    <div class="list-group-item list-group-item-action flex-column align-items-start disabled">
+        <h5 class="my-4 py-2 text-center">
+            <span *ngIf="selectedPileName === pileNames['wins']">Todavia no has ganado ninguna partida.</span>
+            <span *ngIf="selectedPileName === pileNames['losses']">Todavia no has perdida ninguna partida.</span>
+        </h5>
+    </div>
+</ng-template>

@@ -47,7 +47,7 @@ export class DeckService {
     return this.httpClient.get<PileResponseInterface>(addCardsUrl, {});
   }
 
-  listPileCards(deckId: string, pileName: string): Observable<PileListResponseInterface> {
+  getListPileCards(deckId: string, pileName: string): Observable<PileListResponseInterface> {
     const listPileUrl: string = `${API_ROUTES.base}/${deckId}${API_ROUTES_FRAGMENTS.pile}/${pileName}${API_ROUTES_FRAGMENTS.list}`;
 
     return this.httpClient.get<PileListResponseInterface>(listPileUrl, {});

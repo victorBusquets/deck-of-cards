@@ -12,6 +12,7 @@ import { BACK_CARD_IMG } from '@constants/common.const';
 export class CardComponent {
   cardVisible: boolean = false;
   @Input() img!: string;
+  @Input() animation: boolean = true;
   @Input() noEvents: boolean = false;
   @Input() set visible(visible: boolean) {
     setTimeout(()=> this.cardVisible = visible, 10);

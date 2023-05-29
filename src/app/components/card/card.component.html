@@ -1,5 +1,10 @@
 <div class="card-element preview-mode"
-    [ngClass]="{'card-visible': cardVisible && img, 'no-events': noEvents, 'disabled': disabled}"
+    [ngClass]="{
+        'card-visible': cardVisible && img,
+        'no-events': noEvents,
+        'disabled': disabled,
+        'no-animation': !animation
+    }"
     (click)="!disabled && cardClick.emit(true)">
 
     <img class="card-back" alt="Back card image" [attr.src]="backCardImg">

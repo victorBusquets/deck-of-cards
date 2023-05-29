@@ -1,5 +1,5 @@
 <div class="card dialog p-4">
-  <div class="dialog-close" (click)="closeModal()">
+  <div class="dialog-close" (click)="close.emit()">
     <span>&times;</span>
   </div>
   <div class="dialog-content">
@@ -9,4 +9,4 @@
     <ng-content select="[dialog-actions]"></ng-content>
   </div>
 </div>
-<div class="shadow" (click)="shadowClick()"></div>
+<div class="shadow"></div>

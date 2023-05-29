@@ -29,4 +29,10 @@ img{
     font-size: 17px;
     font-weight: 600;
     text-transform: uppercase;
+    cursor: pointer;
+}
+
+.previous-cards{
+    max-height: 40vh;
+    overflow: auto;
 }

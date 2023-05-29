@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs';
 import { SubscriptionsBaseComponent } from '@components/subscriptions-base/subscriptions-base.component';
@@ -10,6 +10,7 @@ import { CardType } from 'src/app/types/card.type';
 import { SuitOptionInterface } from '../../suit-option.interface';
 import { SUIT_OPTIONS } from '../../suit-options.const';
 import { TRACK_BY_INDEX_FUNCTION } from '@constants/common.const';
+import { DialogComponent } from '@components/dialog/dialog.component';
 
 @Component({
   selector: 'app-guess-suit',
@@ -17,6 +18,7 @@ import { TRACK_BY_INDEX_FUNCTION } from '@constants/common.const';
   styleUrls: ['./guess-suit.component.scss']
 })
 export class GuessSuitComponent extends SubscriptionsBaseComponent {
+  @ViewChild('previousCardsDialog', { static: true }) previousCardsDialog!: DialogComponent;
   suitOptions: SuitOptionInterface[] = SUIT_OPTIONS;
   cardImage!: string;
   game!: GameModel;
@@ -24,10 +26,13 @@ export class GuessSuitComponent extends SubscriptionsBaseComponent {
   win: boolean = false;
   losse: boolean = false;
   cardVisible: boolean = false;
+  previousCards: CardInterface[] = [];
+  selectedPileName: string = '';
   pileNames: Record<string, string> = {
-    wins: 'WINS',
-    losses: 'LOSSES'
+    wins: 'wins',
+    losses: 'losses'
   };
+  showLoading: boolean = false;
   trackByIndex = TRACK_BY_INDEX_FUNCTION;
   private deckId!: string;
 
@@ -88,6 +93,25 @@ export class GuessSuitComponent extends SubscriptionsBaseComponent {
         this.gameManagerService.updateGame(this.game);
         this.playAgain();
       });
+  }
+
+  showModal(pileName: string): void{
+    this.previousCardsDialog.showModal();
+    this.selectedPileName = pileName;
+    this.showLoading = true;
+    
+    this.deckService.getListPileCards(this.deckId, pileName)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((response)=>{
+        this.showLoading = false;
+        this.previousCards = response.piles[pileName].cards;
+      });
+  }
+
+  closeModal(): void {
+    this.previousCardsDialog.closeModal();
+    this.selectedPileName = '';
+    this.previousCards = [];
   }
 
   private addGameResult(card: string, win: boolean = false): void {
