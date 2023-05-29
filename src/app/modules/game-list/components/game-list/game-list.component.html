@@ -5,7 +5,7 @@
 
 <div class="list-group">
   <ng-container *ngIf="games?.length; else empty">
-    <app-game-item [game]="game" (deleteAction)="deleteGame($event)" *ngFor="let game of games; trackBy: trackByIndex"></app-game-item>
+    <app-game-item [game]="game" (deleteAction)="showDeleteModal($event)" *ngFor="let game of games; trackBy: trackByIndex"></app-game-item>
   </ng-container>
 </div>
 
@@ -38,6 +38,20 @@
       <span *appSpinner="loading">
         Crear partida
       </span>
+    </button>
+  </div>
+</dialog>
+
+<dialog appDialog #confirmDeleteDialog (close)="closeDeleteModal()">
+  <div dialog-content>
+    <h4 class="page-title">¿Esta seguro que desea borrar la partida '{{deletedGame?.name}}'?</h4>
+  </div>
+  <div dialog-actions class="d-flex justify-content-between">
+    <button type="button" class="btn btn-danger" (click)="closeDeleteModal()">
+      Cancelar
+    </button>
+    <button type="button" class="btn btn-success" (click)="deleteGame()">
+      Borrar
     </button>
   </div>
 </dialog>

@@ -13,12 +13,12 @@ import { GameModel } from '@models/game.class';
 })
 export class GameItemComponent {
   @Input() game!: GameModel;
-  @Output() deleteAction: EventEmitter<string> = new EventEmitter<string>();
+  @Output() deleteAction: EventEmitter<GameModel> = new EventEmitter<GameModel>();
   deleteSvg: string = DELETE_SVG;
 
-  deleteGame(event: Event, deckId: string): void {
+  deleteGame(event: Event, game: GameModel): void {
     event.preventDefault();
     event.stopPropagation();
-    this.deleteAction.emit(deckId);
+    this.deleteAction.emit(game);
   }
 }

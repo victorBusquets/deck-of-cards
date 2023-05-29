@@ -30,11 +30,13 @@ import { SpinnerDirective } from '@directives/spinner/spinner.directive';
 })
 export class GameListComponent extends SubscriptionsBaseComponent {
   @ViewChild('createGameDialog', { static: true }) createGameDialog!: DialogComponent;
+  @ViewChild('confirmDeleteDialog', { static: true }) confirmDeleteDialog!: DialogComponent;
   gameTitle: string = '';
   gameType!: GameType;
   games!: GameModel[];
   gameName: string = '';
-  loading: boolean = true;
+  loading: boolean = false;
+  deletedGame!: GameModel | null;
   trackByIndex = TRACK_BY_INDEX_FUNCTION;
 
   constructor(
@@ -54,8 +56,10 @@ export class GameListComponent extends SubscriptionsBaseComponent {
     });
   }
 
-  deleteGame(deckId: string): void {
+  deleteGame(): void {
+    const deckId: string = this.deletedGame?.deckId as string;
     this.gameManagerService.deleteGame(deckId);
+    this.closeDeleteModal();
     this.getGames();
   }
 
@@ -66,6 +70,16 @@ export class GameListComponent extends SubscriptionsBaseComponent {
 
   showModal(): void {
     this.createGameDialog.showModal();
+  }
+
+  closeDeleteModal(): void {
+    this.deletedGame = null;
+    this.confirmDeleteDialog.closeModal();
+  }
+
+  showDeleteModal(game: GameModel): void {
+    this.deletedGame = game;
+    this.confirmDeleteDialog.showModal();
   }
 
   createGame(): void {
