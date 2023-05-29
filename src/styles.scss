@@ -1,8 +1,11 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
 :root{
+    --breadcrumb-height: 40px;
     --succes-color:  #1ea21e;
     --error-color:  #a50909;
+    --breadcrumb-color: #e6e6e6;    
+    --scrollbar-color: #7571f3;    
     --white-color: white;
 }
 
@@ -26,6 +29,11 @@ dialog {
     &.top-sticky{
         top: 0;
     }
+
+    &.top-sub-sticky{
+        top: var(--breadcrumb-height);
+        padding-top: 10px;
+    }
     
     &.bottom-sticky{
         bottom: 0;
@@ -41,6 +49,6 @@ dialog {
 }
   
 *::-webkit-scrollbar-thumb {
-    background-color: #7571f3;
+    background-color: var(--scrollbar-color);
     border-radius: 20px;
 }

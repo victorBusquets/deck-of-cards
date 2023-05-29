@@ -7,6 +7,7 @@ import localeEs from '@angular/common/locales/es';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BreadcrumbComponent } from '@components/breadcrumb/breadcrumb.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -17,7 +18,8 @@ registerLocaleData(localeEs, 'es');
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BreadcrumbComponent
   ],
   bootstrap: [AppComponent]
 })

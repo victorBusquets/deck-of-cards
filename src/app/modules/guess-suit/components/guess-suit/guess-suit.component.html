@@ -1,4 +1,5 @@
-<h3 class="page-title" *ngIf="game">Partida {{game.name}}</h3>
+<h3 class="page-title sticky top-sub-sticky"
+    *ngIf="game">Partida {{game.name}}</h3>
 
 <div class="row">
     <p class="badge col-6 bg-success" (click)="showModal(pileNames['wins'])">Ver {{game.wins}} victorias</p>

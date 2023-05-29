@@ -1,0 +1,15 @@
+.breadcrumb-header{
+    background-color: var(--breadcrumb-color);
+    height: var(--breadcrumb-height);
+
+    .breadcrumb-item{
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+    .active{
+        cursor: unset;
+        text-decoration: unset;
+        font-weight: 600;
+    }
+}
