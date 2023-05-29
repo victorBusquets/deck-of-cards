@@ -1,0 +1,1 @@
+export type CardType = 'HEARTS' | 'SPADES' | 'CLUBS' | 'DIAMONDS';

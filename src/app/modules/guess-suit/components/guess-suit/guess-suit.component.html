@@ -1,0 +1,37 @@
+<h3 class="page-title" *ngIf="game">Partida {{game.name}}</h3>
+
+<div class="row">
+    <p class="badge col-6 bg-success">{{game.wins}} victorias</p>
+    <p class="badge col-6 bg-danger">{{game.losses}} derrotas</p>
+</div>
+
+<h5 class="page-title">Selecciona que carta va a salir</h5>
+
+<div class="row mb-2">
+    <div class="suit mb-2 col-3"
+        [ngClass]="{'selected': selectedCardSuit === suitOption.suit}"
+        (click)="toggleSuit(suitOption.suit)" 
+        *ngFor="let suitOption of suitOptions; trackBy: trackByIndex">
+        
+        <img [src]="suitOption.img" [alt]="suitOption.alt">
+    </div>
+</div>
+
+<h5 class="page-title" [ngClass]="{'disabled': !selectedCardSuit}">Levanta la carta</h5>
+
+<div class="px-4 mx-4">
+    <app-card [img]="cardImage"
+        [visible]="cardVisible"
+        [disabled]="!selectedCardSuit"
+        (cardClick)="getCard()"></app-card>
+</div>
+
+<p class="alert alert-dark my-1" role="alert">{{game.remainingCards}} cartas restantes</p>
+
+<p *ngIf="win" class="alert alert-success" role="alert">¡Enhorabuena has acertado!</p>
+<p *ngIf="losse" class="alert alert-danger" role="alert">Has fallado, prueba de nuevo</p>
+
+<div class="sticky bottom-sticky py-2 mt-2 d-flex justify-content-evenly" *ngIf="win || losse">
+    <button (click)="shuffleCards()" type="button" class="btn btn-primary">Barajar cartas</button>
+    <button (click)="playAgain()" type="button" class="btn btn-primary">Volver a jugar</button>
+</div>

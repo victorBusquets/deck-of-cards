@@ -1,4 +1,7 @@
-<div class="card preview-mode" [ngClass]="{'card-visible': visible && img, 'no-events': !img}">
+<div class="card-element preview-mode"
+    [ngClass]="{'card-visible': cardVisible && img, 'no-events': noEvents, 'disabled': disabled}"
+    (click)="!disabled && cardClick.emit(true)">
+
     <img class="card-back" alt="Back card image" [attr.src]="backCardImg">
     <img class="card-content" alt="Card image" *ngIf="img" [attr.src]="img">
 </div>

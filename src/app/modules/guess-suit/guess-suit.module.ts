@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GuessSuitComponent } from './guess-suit.component';
 import { GuessSuitRoutingModule } from './guess-suit-routing.module';
+import { CardComponent } from '@components/card/card.component';
+import { GuessSuitComponent } from './components/guess-suit/guess-suit.component';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { GuessSuitRoutingModule } from './guess-suit-routing.module';
   ],
   imports: [
     GuessSuitRoutingModule,
-    CommonModule
+    CommonModule,
+    CardComponent
   ]
 })
 export class GuessSuitModule { }

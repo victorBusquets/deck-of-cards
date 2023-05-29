@@ -43,14 +43,14 @@ export class GameManagerService {
     return newGame;
   }
 
-  editGame(game: GameModel): void {
+  updateGame(game: GameModel): void {
     const gameList: GameModel[] = this.getGameList();
     const index: number = gameList.findIndex((gameItem)=>gameItem.deckId === game.deckId);
     
     if(index > -1) {
       game.lastChange = new Date();
       gameList[index] = game;
-      gameList.sort(this.sortByDate);
+      gameList.sort((gameA, gameB) => this.sortByDate(gameA, gameB));
       this.saveGameList(gameList);
     }
   }
@@ -63,12 +63,12 @@ export class GameManagerService {
     this.saveGameList(gameList);
   }
 
-  saveGameList(gameList: GameModel[]): void {
+  private saveGameList(gameList: GameModel[]): void {
     const gameListString: string = JSON.stringify(gameList);
     localStorage.setItem(GAME_LS_KEY, gameListString);
   }
 
   private sortByDate(gameA: GameModel, gameB: GameModel): number {
-    return gameB.lastChange.valueOf() - gameA.lastChange.valueOf();
+    return new Date(gameB.lastChange).valueOf() - new Date(gameA.lastChange).valueOf();
   }
 }

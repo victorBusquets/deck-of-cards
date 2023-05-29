@@ -17,13 +17,13 @@ export class DeckService {
     return this.httpClient.get<DeckResponseInterface>(API_ROUTES.generateDeck, {params: {deck_count: deckCount}});
   }
 
-  drawCards(deckId: number, count: number): Observable<DrawCardsResponseInterface> {
+  drawCards(deckId: string, count: number): Observable<DrawCardsResponseInterface> {
     const drawCardsUrl: string = `${API_ROUTES.base}/${deckId}${API_ROUTES_FRAGMENTS.draw}`;
 
     return this.httpClient.get<DrawCardsResponseInterface>(drawCardsUrl, {params: {count}});
   }
 
-  shuffle(deckId: number, remaining: boolean = false): Observable<DeckResponseInterface> {
+  shuffle(deckId: string, remaining: boolean = false): Observable<DeckResponseInterface> {
     const shuffleUrl: string = `${API_ROUTES.base}/${deckId}${API_ROUTES_FRAGMENTS.shuffle}`;
     let params: {remaining?: boolean} = {};
 

@@ -5,7 +5,7 @@
         <div class="game-option p-4 col-md-6 col-12"
             *ngFor="let gameLink of gameLinks; trackBy: trackByIndex">
             
-            <app-card [routerLink]="gameLink.link"></app-card>
+            <app-card [noEvents]="true" [routerLink]="gameLink.link"></app-card>
             <p class="m-0 game-type">{{gameLink.title}}</p>
         </div>
     </div>
