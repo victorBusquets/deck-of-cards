@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { SubscriptionsBaseComponent } from '@components/subscriptions-base/subscriptions-base.component';
 import { TRACK_BY_INDEX_FUNCTION } from '@constants/common.const';
@@ -11,18 +11,13 @@ import { takeUntil, filter, startWith } from 'rxjs';
   imports: [CommonModule],
   selector: 'app-breadcrumb',
   templateUrl: './breadcrumb.component.html',
-  styleUrls: ['./breadcrumb.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./breadcrumb.component.scss']
 })
 export class BreadcrumbComponent extends SubscriptionsBaseComponent {
   breadcrumbConfig: BreadcrumbInterface[] = [];
   trackByIndex = TRACK_BY_INDEX_FUNCTION;
 
-  constructor(
-    route: ActivatedRoute,
-    private router: Router,
-    private changeDetector: ChangeDetectorRef
-  ) {
+  constructor(route: ActivatedRoute, private router: Router) {
     super();
 
     this.router.events
@@ -33,7 +28,6 @@ export class BreadcrumbComponent extends SubscriptionsBaseComponent {
       )
       .subscribe(() => {
         this.breadcrumbConfig = route.snapshot.firstChild?.data['breadcrumbConfig'] || [];
-        this.changeDetector.detectChanges();
       });
   }
 
