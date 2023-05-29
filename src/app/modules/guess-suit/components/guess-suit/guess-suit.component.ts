@@ -84,6 +84,8 @@ export class GuessSuitComponent extends SubscriptionsBaseComponent {
     this.deckService.shuffle(this.deckId)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response)=>{
+        this.game.losses = 0;
+        this.game.wins = 0;
         this.game.remainingCards = response.remaining;
         this.gameManagerService.updateGame(this.game);
         this.playAgain();
