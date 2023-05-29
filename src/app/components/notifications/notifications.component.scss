@@ -1,0 +1,23 @@
+.notification-list {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 10;
+
+    .notification {
+        color: var(--white-color);
+
+        &.success{
+            background-color: var(--succes-color);
+        }
+        &.error{
+            background-color: var(--error-color);
+        }
+
+        .close{
+            font-size: 20px;
+            line-height: 20px;
+            font-weight: 800;
+        }
+    }
+}

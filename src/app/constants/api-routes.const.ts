@@ -10,6 +10,6 @@ export const API_ROUTES_FRAGMENTS = {
 }
 
 export const API_ROUTES = {
-    base: environment.apiUrl +'ddd',
+    base: environment.apiUrl,
     generateDeck: `${environment.apiUrl}${API_ROUTES_FRAGMENTS.new}${API_ROUTES_FRAGMENTS.shuffle}`
 }

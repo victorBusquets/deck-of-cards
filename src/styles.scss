@@ -52,3 +52,7 @@ dialog {
     background-color: var(--scrollbar-color);
     border-radius: 20px;
 }
+
+dialog::backdrop {
+    display: none;
+}

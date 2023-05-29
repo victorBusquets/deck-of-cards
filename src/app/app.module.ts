@@ -9,18 +9,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BreadcrumbComponent } from '@components/breadcrumb/breadcrumb.component';
 import { ErrorHandlerInterceptor } from './interceptors/error-handler.iterceptor';
+import { NotificationsComponent } from '@components/notifications/notifications.component';
 
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    NotificationsComponent
   ],
   providers: [
     {

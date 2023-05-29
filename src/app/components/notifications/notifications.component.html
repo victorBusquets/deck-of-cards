@@ -1,0 +1,10 @@
+<div class="notification-list">
+    <div class="notification py-3 mb-2 px-2 d-flex"
+        [ngClass]="notification.type"
+        *ngFor="let notification of notifications$ | async">
+        <div class="close" (click)="removeNotifiation(notification)">
+            <span>&times;</span>
+        </div>
+        <span class="px-2">{{notification.message}}</span>
+    </div>
+</div>
