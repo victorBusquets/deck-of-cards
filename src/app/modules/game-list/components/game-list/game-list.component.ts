@@ -88,12 +88,17 @@ export class GameListComponent extends SubscriptionsBaseComponent {
 
     this.deckService.generateDeck(numberOfDecks)
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((deck)=>{
-        const game: GameModel = this.gameManagerService
-          .createGame(deck.deck_id, this.gameName, this.gameType, deck.remaining);
-        this.loading = false;
-        this.closeModal();
-        this.goToGameDetail(game);
+      .subscribe({
+        next: (deck)=>{
+          const game: GameModel = this.gameManagerService
+            .createGame(deck.deck_id, this.gameName, this.gameType, deck.remaining);
+          this.loading = false;
+          this.closeModal();
+          this.goToGameDetail(game);
+        },
+        error: ()=> {
+          this.loading = false;
+        }
       });
   }
 

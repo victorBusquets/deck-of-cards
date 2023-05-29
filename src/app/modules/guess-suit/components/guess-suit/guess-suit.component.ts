@@ -61,12 +61,7 @@ export class GuessSuitComponent extends SubscriptionsBaseComponent {
           const card: CardInterface = response.cards[0];
           this.cardImage = card.image;
           this.cardVisible = true;
-
-          if( this.selectedCardSuit === card.suit) {
-            this.addGameResult(card.code, true);
-          }else {
-            this.addGameResult(card.code);
-          }
+          this.addGameResult(card.code, this.selectedCardSuit === card.suit);
         });
     }
   }
@@ -102,9 +97,14 @@ export class GuessSuitComponent extends SubscriptionsBaseComponent {
     
     this.deckService.getListPileCards(this.deckId, pileName)
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((response)=>{
-        this.showLoading = false;
-        this.previousCards = response.piles[pileName].cards;
+      .subscribe({
+        next: (response)=>{
+          this.showLoading = false;
+          this.previousCards = response.piles[pileName].cards;
+        },
+        error: ()=> {
+          this.showLoading = false;
+        }
       });
   }
 
