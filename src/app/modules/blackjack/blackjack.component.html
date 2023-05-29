@@ -1,1 +1,41 @@
-<p>blackjack works!</p>
+<h3 class="page-title sticky top-sub-sticky"
+    *ngIf="game">Partida {{game.name}}</h3>
+
+<div class="row">
+    <p class="badge col-6 bg-success">{{game.wins}} victorias</p>
+    <p class="badge col-6 bg-danger">{{game.losses}} derrotas</p>
+</div>
+
+<h5 class="page-title">Tus cartas</h5>
+
+<div class="player-cards row">
+    <ng-container *appSpinner="showLoading">
+        <app-card class="col-3" 
+            [noEvents]="true"
+            [visible]="!!playerCard.visible"
+            [img]="playerCard.image"
+            *ngFor="let playerCard of playerCards; trackBy: trackByIndex"></app-card>
+    </ng-container>
+</div>
+<h6 class="page-title"*ngIf="score">Puntuacion {{score}}</h6>
+
+<p class="alert alert-dark my-1" role="alert">{{game.remainingCards}} cartas restantes</p>
+<p *ngIf="win" class="alert alert-success" role="alert">¡Enhorabuena has ganado!</p>
+<p *ngIf="losse" class="alert alert-danger" role="alert">Te has pasado, prueba de nuevo</p>
+
+<div class="sticky bottom-sticky py-2 mt-2 d-flex justify-content-evenly">
+    <button type="button" class="btn btn-primary" *ngIf="!gameStarted" (click)="play()">Jugar</button>
+    <ng-container *ngIf="gameStarted && !losse && !win && !croupierTurn">
+        <button type="button"
+            class="btn btn-primary"
+            [disabled]="buttonLoading"
+            (click)="standUp()">Plantarse</button>
+        <button type="button"
+            class="btn btn-primary"
+            [disabled]="buttonLoading"
+            (click)="getOtherCard()">
+            <span *appSpinner="buttonLoading">Pedir otra</span>
+        </button>
+    </ng-container>
+    <button type="button" class="btn btn-primary" *ngIf="losse || win" (click)="playAgain()">Jugar de nuevo</button>
+</div>

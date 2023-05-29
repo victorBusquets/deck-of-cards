@@ -5,5 +5,6 @@ export interface CardInterface {
     image: string; 
     value: string; 
     suit: CardType;
-    images: { svg: string; png: string;} 
+    images: { svg: string; png: string;};
+    visible?: boolean;
 }

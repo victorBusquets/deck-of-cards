@@ -7,3 +7,5 @@ export const GAME_OPTIONS: Record<string, GameType> = {
     guessSuit: 'guess-suit'
 }
 export const TRACK_BY_INDEX_FUNCTION = (index: number) => index;
+
+export const MAX_SCORE: number = 21;
