@@ -11,6 +11,7 @@ import { SuitOptionInterface } from '../../suit-option.interface';
 import { SUIT_OPTIONS } from '../../suit-options.const';
 import { TRACK_BY_INDEX_FUNCTION } from '@constants/common.const';
 import { DialogComponent } from '@components/dialog/dialog.component';
+import { NotificationService } from '@services/notifications.service';
 
 @Component({
   selector: 'app-guess-suit',
@@ -39,7 +40,8 @@ export class GuessSuitComponent extends SubscriptionsBaseComponent {
   constructor(
     private route: ActivatedRoute,
     private gameManagerService: GameManagerService,
-    private deckService: DeckService
+    private deckService: DeckService,
+    private notificationService: NotificationService
   ) {
     super();
   }
@@ -88,6 +90,7 @@ export class GuessSuitComponent extends SubscriptionsBaseComponent {
         this.game.wins = 0;
         this.game.remainingCards = response.remaining;
         this.gameManagerService.updateGame(this.game);
+        this.notificationService.addNotification('success', 'Cartas barajadas');
         this.playAgain();
       });
   }

@@ -7,7 +7,7 @@ import { NotificationType } from '../types/notification.type';
   providedIn: 'root'
 })
 export class NotificationService {
-  private notificationDuration: number = 5000;
+  private notificationDuration: number = 3000;
   private notifications: NotificationInterface[] = [];
   private notifications$: BehaviorSubject<NotificationInterface[]> = new BehaviorSubject(this.notifications);
   

@@ -9,6 +9,7 @@ import { GameModel } from '@models/game.class';
 import { DeckService } from '@services/deck.service';
 import { GameManagerService } from '@services/game-manager.service';
 import { NotificationService } from '@services/notifications.service';
+import { BlackjackUtils } from '@utils/blackjack.utils';
 import { Observable, takeUntil, tap } from 'rxjs';
 
 @Component({
@@ -19,11 +20,14 @@ import { Observable, takeUntil, tap } from 'rxjs';
 export class BlackjackComponent extends SubscriptionsBaseComponent {
   game!: GameModel;
   score: number = 0;
+  croupierScore: number = 0;
   playerCards: CardInterface[] = [];
+  croupierCards: CardInterface[] = [];
   losse: boolean = false;
   win: boolean = false;
   gameStarted: boolean = false;
   croupierTurn: boolean = false;
+  showCroupierLoading: boolean = false;
   showLoading: boolean = false;
   buttonLoading: boolean = false;
   trackByIndex = TRACK_BY_INDEX_FUNCTION;
@@ -33,7 +37,8 @@ export class BlackjackComponent extends SubscriptionsBaseComponent {
     private route: ActivatedRoute,
     private gameManagerService: GameManagerService,
     private deckService: DeckService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private blackjackUtils: BlackjackUtils
   ) {
     super();
   }
@@ -83,52 +88,67 @@ export class BlackjackComponent extends SubscriptionsBaseComponent {
 
   standUp(): void {
     this.croupierTurn = true;
+    this.startCroupierTurn();
   }
 
   playAgain(): void {
+    this.score = 0;
+    this.croupierScore = 0;
     this.croupierTurn = false;
     this.win = false;
     this.losse = false;
     this.gameStarted = false;
     this.showLoading = true;
     this.playerCards = [];
+    this.croupierCards = [];
 
     this.getInitialCards();
   }
 
-  shuffleCards(): void {
+  shuffleCards(startNewGame: boolean = false): void {
     this.deckService.shuffle(this.deckId)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response)=>{
         this.notificationService.addNotification('success', 'Cartas barajadas');
         this.game.remainingCards = response.remaining;
         this.gameManagerService.updateGame(this.game);
+
+        if(startNewGame) {
+          this.playAgain();
+        }
       });
   }
 
+  private startCroupierTurn(): void {
+    this.showCroupierLoading = true;
+
+    this.getCards(2).subscribe({
+      next: response => {
+        this.showCroupierLoading = false;
+        this.croupierCards = this.formatCardsResponse(response.cards, true);
+        this.updateCroupierScore();
+      },
+      error: ()=>{
+        this.showCroupierLoading = false;
+      }
+    });
+  }
+
+  private croupierGetOtherCard(): void {
+    this.getCards(1).subscribe(response => {
+      this.croupierCards = this.croupierCards.concat(this.formatCardsResponse(response.cards, true));
+      this.updateCroupierScore();
+    });
+  }
+
+  private updateCroupierScore(): void {
+    this.croupierScore = this.blackjackUtils.getScore(this.croupierCards);
+    this.checkCroupierGameEnd();
+  }
+
   private updateScore(): void {
-    const cardValues: string[] = this.playerCards.map((card)=>card.value);
-    const cardWithoutAces: string[] = cardValues.filter((value)=>value !== ACE); 
-    const numberOfAces: number = cardValues.length - cardWithoutAces.length;
-
-    this.score = cardWithoutAces
-      .map((value) => CARD_VALUES[value] || +value)
-      .reduce((a,b) => a+b);
-
-    this.score = this.addAcesValue(this.score, numberOfAces);
+    this.score = this.blackjackUtils.getScore(this.playerCards);
     this.checkGameEnd();
-  }
-
-  private addAcesValue(score: number, numberOfAces: number): number {
-    const bigAceScore: number = score + CARD_VALUES['BIG-ACE']  + numberOfAces -1;
-    const bigAceIsValid: boolean = bigAceScore <= MAX_SCORE;
-    
-    return bigAceIsValid && numberOfAces ? this.addBigAce(score, numberOfAces) : score + numberOfAces;
-  }
-
-  private addBigAce(score: number, numberOfAces: number): number {
-    const newScore: number = score + CARD_VALUES['BIG-ACE'];
-    return numberOfAces > 1 ? this.addAcesValue(newScore, numberOfAces-1) : newScore;
   }
 
   private checkGameEnd(): void {
@@ -138,6 +158,16 @@ export class BlackjackComponent extends SubscriptionsBaseComponent {
     } else if (this.score > MAX_SCORE) {
       this.losse = true;
       this.updateGame();
+    }
+  }
+
+  private checkCroupierGameEnd(): void {
+    if (this.croupierScore >= 17) {
+      this.win = this.score > this.croupierScore || this.croupierScore > MAX_SCORE;
+      this.losse = !this.win;
+      this.updateGame();
+    } else {
+      setTimeout(()=> this.croupierGetOtherCard(), 1000);
     }
   }
 

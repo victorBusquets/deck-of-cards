@@ -10,18 +10,33 @@
 
 <div class="player-cards row">
     <ng-container *appSpinner="showLoading">
-        <app-card class="col-3" 
-            [noEvents]="true"
-            [visible]="!!playerCard.visible"
-            [img]="playerCard.image"
-            *ngFor="let playerCard of playerCards; trackBy: trackByIndex"></app-card>
+        <div class="col-3" *ngFor="let playerCard of playerCards; trackBy: trackByIndex">
+            <app-card [noEvents]="true"
+                [visible]="!!playerCard.visible"
+                [img]="playerCard.image"></app-card>
+        </div>
     </ng-container>
 </div>
-<h6 class="page-title"*ngIf="score">Puntuacion {{score}}</h6>
+<h6 class="page-title"*ngIf="score">Tu puntuacion {{score}}</h6>
+
+<ng-container *ngIf="croupierTurn">
+    <div class="croupier-cards row">
+        <ng-container *appSpinner="showCroupierLoading">
+            <div class="col-3" *ngFor="let croupierCard of croupierCards; trackBy: trackByIndex">
+                <app-card [noEvents]="true"
+                    [visible]="!!croupierCard.visible"
+                    [img]="croupierCard.image"></app-card>
+            </div>
+        </ng-container>
+    </div>
+
+    <h6 class="page-title"*ngIf="croupierScore">Puntuacion banca {{croupierScore}}</h6>
+</ng-container>
 
 <p class="alert alert-dark my-1" role="alert">{{game.remainingCards}} cartas restantes</p>
 <p *ngIf="win" class="alert alert-success" role="alert">¡Enhorabuena has ganado!</p>
-<p *ngIf="losse" class="alert alert-danger" role="alert">Te has pasado, prueba de nuevo</p>
+<p *ngIf="losse && !croupierTurn" class="alert alert-danger" role="alert">Te has pasado, prueba de nuevo</p>
+<p *ngIf="losse && croupierTurn" class="alert alert-danger" role="alert">Ha ganado la banca, prueba de nuevo</p>
 
 <div class="sticky bottom-sticky py-2 mt-2 d-flex justify-content-evenly">
     <button type="button" class="btn btn-primary" *ngIf="!gameStarted" (click)="play()">Jugar</button>
@@ -37,5 +52,8 @@
             <span *appSpinner="buttonLoading">Pedir otra</span>
         </button>
     </ng-container>
-    <button type="button" class="btn btn-primary" *ngIf="losse || win" (click)="playAgain()">Jugar de nuevo</button>
+    <ng-container *ngIf="losse || win">
+        <button type="button" class="btn btn-primary" (click)="playAgain()">Jugar de nuevo</button>
+        <button type="button" class="btn btn-primary" (click)="shuffleCards(true)">Barajar cartas</button>
+    </ng-container>
 </div>
