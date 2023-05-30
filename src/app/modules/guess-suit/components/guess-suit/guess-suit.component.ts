@@ -12,8 +12,13 @@ import { SUIT_OPTIONS } from '../../suit-options.const';
 import { TRACK_BY_INDEX_FUNCTION } from '@constants/common.const';
 import { DialogComponent } from '@components/dialog/dialog.component';
 import { NotificationService } from '@services/notifications.service';
+import { CommonModule } from '@angular/common';
+import { CardComponent } from '@components/card/card.component';
+import { SpinnerDirective } from '@directives/spinner/spinner.directive';
 
 @Component({
+  standalone: true,
+  imports: [CommonModule, CardComponent, DialogComponent, SpinnerDirective],
   selector: 'app-guess-suit',
   templateUrl: './guess-suit.component.html',
   styleUrls: ['./guess-suit.component.scss']

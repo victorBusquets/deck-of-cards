@@ -41,12 +41,6 @@ export class DeckService {
     return this.httpClient.get<PileResponseInterface>(addCardsUrl, {params: {cards: formattedCards}});
   }
 
-  shufflePile(deckId: string, pileName: string): Observable<PileResponseInterface> {
-    const addCardsUrl: string = `${API_ROUTES.base}/${deckId}${API_ROUTES_FRAGMENTS.pile}/${pileName}${API_ROUTES_FRAGMENTS.shuffle}`;
-
-    return this.httpClient.get<PileResponseInterface>(addCardsUrl, {});
-  }
-
   getListPileCards(deckId: string, pileName: string): Observable<PileListResponseInterface> {
     const listPileUrl: string = `${API_ROUTES.base}/${deckId}${API_ROUTES_FRAGMENTS.pile}/${pileName}${API_ROUTES_FRAGMENTS.list}`;
 

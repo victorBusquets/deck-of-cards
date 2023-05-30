@@ -1,7 +1,8 @@
+import { GAME_OPTIONS } from "@constants/common.const";
 import { GameType } from "../types/game.type";
 
 export class GameModel {
-    type: GameType = 'blackjack';
+    type: GameType = GAME_OPTIONS['blackjack'];
     deckId: string = '';
     wins: number = 0;
     losses: number = 0;
