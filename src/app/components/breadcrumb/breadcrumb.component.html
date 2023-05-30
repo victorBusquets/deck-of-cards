@@ -1,8 +1,10 @@
 <div class="breadcrumb-header px-4 py-2 sticky top-sticky">
-    <ng-container *ngFor="let breadcrumbItem of breadcrumbConfig; let last = last; trackBy: trackByIndex">
-        <span class="breadcrumb-item" [ngClass]="{'active': last}" (click)="goToLink(breadcrumbItem, last)">
-            {{breadcrumbItem.name}}
-        </span>
-        <span class="separator px-1" *ngIf="!last">/</span>
-    </ng-container>
+    <div class="container">
+        <ng-container *ngFor="let breadcrumbItem of breadcrumbConfig; let last = last; trackBy: trackByIndex">
+            <span class="breadcrumb-item" [ngClass]="{'active': last}" (click)="goToLink(breadcrumbItem, last)">
+                {{breadcrumbItem.name}}
+            </span>
+            <span class="separator px-1" *ngIf="!last">/</span>
+        </ng-container>
+    </div>
 </div>

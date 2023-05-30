@@ -28,7 +28,7 @@ export class GuessSuitComponent extends SubscriptionsBaseComponent {
   suitOptions: SuitOptionInterface[] = SUIT_OPTIONS;
   cardImage!: string;
   game!: GameModel;
-  selectedCardSuit!: CardType | '';
+  selectedCardSuit: CardType | null = null;
   win: boolean = false;
   losse: boolean = false;
   cardVisible: boolean = false;
@@ -75,7 +75,7 @@ export class GuessSuitComponent extends SubscriptionsBaseComponent {
 
   playAgain(): void {
     this.cardImage = '';
-    this.selectedCardSuit = '';
+    this.selectedCardSuit = null;
     this.cardVisible = false;
     this.win = false;
     this.losse = false;
@@ -83,7 +83,7 @@ export class GuessSuitComponent extends SubscriptionsBaseComponent {
 
   toggleSuit(suit: CardType): void {
     if(!this.cardImage) {
-      this.selectedCardSuit = this.selectedCardSuit === suit ? '' : suit;
+      this.selectedCardSuit = this.selectedCardSuit === suit ? null : suit;
     }
   }
 

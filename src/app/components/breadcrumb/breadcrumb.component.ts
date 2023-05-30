@@ -33,7 +33,7 @@ export class BreadcrumbComponent extends SubscriptionsBaseComponent {
 
   goToLink(breadcrumbItem: BreadcrumbInterface, last: boolean): void {
     if(!last) {
-      this.router.navigate(breadcrumbItem.link)
+      this.router.navigate(breadcrumbItem.link);
     }
   }
 }

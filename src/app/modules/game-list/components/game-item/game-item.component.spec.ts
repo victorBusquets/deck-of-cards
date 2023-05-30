@@ -21,4 +21,13 @@ describe('GameItemComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('deleteGame should emit game info', ()=>{
+    const event = new MouseEvent('click');
+    const spy = spyOn(component.deleteAction, 'emit');
+
+    component.deleteGame(event);
+
+    expect(spy).toHaveBeenCalled();
+  })
 });

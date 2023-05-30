@@ -16,9 +16,9 @@ export class GameItemComponent {
   @Output() deleteAction: EventEmitter<GameModel> = new EventEmitter<GameModel>();
   deleteSvg: string = DELETE_SVG;
 
-  deleteGame(event: Event, game: GameModel): void {
+  deleteGame(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
-    this.deleteAction.emit(game);
+    this.deleteAction.emit(this.game);
   }
 }

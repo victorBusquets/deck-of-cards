@@ -57,19 +57,6 @@ export class BlackjackComponent extends SubscriptionsBaseComponent {
       });
   }
 
-  startPlayerTurn(): void {
-    this.showLoading = true;
-    this.getCards(2).subscribe({
-      next: response => {
-        this.showLoading = false;
-        this.playerCards = this.blackjackUtils.formatCardsResponse(response.cards);
-      },
-      error: ()=>{
-        this.showLoading = false;
-      }
-    });
-  }
-
   play(): void {
     this.gameStarted = true;
     this.playerCards.forEach((card)=>card.visible = true);
@@ -122,6 +109,19 @@ export class BlackjackComponent extends SubscriptionsBaseComponent {
           this.playAgain();
         }
       });
+  }
+
+  private startPlayerTurn(): void {
+    this.showLoading = true;
+    this.getCards(2).subscribe({
+      next: response => {
+        this.showLoading = false;
+        this.playerCards = this.blackjackUtils.formatCardsResponse(response.cards);
+      },
+      error: ()=>{
+        this.showLoading = false;
+      }
+    });
   }
 
   private startCroupierTurn(): void {
