@@ -20,8 +20,11 @@ export class BlackjackUtils {
         return this.addAcesValue(score, numberOfAces);
     }
 
-    checkEndGame(): void {
-        
+    formatCardsResponse(cards: CardInterface[], setVisible: boolean = false): CardInterface[] {
+        return cards.map((card)=>{
+          card.visible = setVisible;
+          return card;
+        });
     }
 
     private addAcesValue(score: number, numberOfAces: number): number {

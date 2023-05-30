@@ -8,29 +8,16 @@
 
 <h5 class="page-title">Tus cartas</h5>
 
-<div class="player-cards row">
-    <ng-container *appSpinner="showLoading">
-        <div class="col-3" *ngFor="let playerCard of playerCards; trackBy: trackByIndex">
-            <app-card [noEvents]="true"
-                [visible]="!!playerCard.visible"
-                [img]="playerCard.image"></app-card>
-        </div>
-    </ng-container>
-</div>
-<h6 class="page-title"*ngIf="score">Tu puntuacion {{score}}</h6>
+<app-card-list scoreMessage="Tu puntuacion"
+    [cards]="playerCards"
+    [showLoading]="showLoading"
+    [score]="score"></app-card-list>
 
 <ng-container *ngIf="croupierTurn">
-    <div class="croupier-cards row">
-        <ng-container *appSpinner="showCroupierLoading">
-            <div class="col-3" *ngFor="let croupierCard of croupierCards; trackBy: trackByIndex">
-                <app-card [noEvents]="true"
-                    [visible]="!!croupierCard.visible"
-                    [img]="croupierCard.image"></app-card>
-            </div>
-        </ng-container>
-    </div>
-
-    <h6 class="page-title"*ngIf="croupierScore">Puntuacion banca {{croupierScore}}</h6>
+    <app-card-list scoreMessage="Puntuacion banca"
+        [cards]="croupierCards"
+        [showLoading]="showCroupierLoading"
+        [score]="croupierScore"></app-card-list>
 </ng-container>
 
 <p class="alert alert-dark my-1" role="alert">{{game.remainingCards}} cartas restantes</p>

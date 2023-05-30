@@ -1,0 +1,10 @@
+<div class="cards-list row">
+    <ng-container *appSpinner="showLoading">
+        <div class="col-3" *ngFor="let card of cards; trackBy: trackByIndex">
+            <app-card [noEvents]="true"
+                [visible]="!!card.visible"
+                [img]="card.image"></app-card>
+        </div>
+    </ng-container>
+</div>
+<h6 class="page-title"*ngIf="score">{{scoreMessage}} {{score}}</h6>

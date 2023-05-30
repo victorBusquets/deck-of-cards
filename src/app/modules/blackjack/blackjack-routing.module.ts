@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BlackjackComponent } from './blackjack.component';
+import { BlackjackComponent } from './components/blackjack/blackjack.component';
 
 const routes: Routes = [
   {

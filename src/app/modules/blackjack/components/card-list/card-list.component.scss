@@ -1,0 +1,10 @@
+.cards-list{
+    min-height: 100px;
+}
+
+app-card{
+    display: inline-block;
+    width: 90%;
+    max-width: 150px;
+    margin: 0 auto;
+}

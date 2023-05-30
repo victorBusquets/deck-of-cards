@@ -1,8 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SubscriptionsBaseComponent } from '@components/subscriptions-base/subscriptions-base.component';
-import { MAX_SCORE, TRACK_BY_INDEX_FUNCTION } from '@constants/common.const';
-import { ACE, CARD_VALUES, MIN_BLACKJACK_CARDS } from '@constants/game-options.const';
+import { MAX_SCORE } from '@constants/common.const';
+import { MIN_BLACKJACK_CARDS } from '@constants/game-options.const';
+import { SpinnerDirective } from '@directives/spinner/spinner.directive';
 import { CardInterface } from '@interfaces/card.interface';
 import { DrawCardsResponseInterface } from '@interfaces/draw-cards-response.interface';
 import { GameModel } from '@models/game.class';
@@ -11,8 +13,11 @@ import { GameManagerService } from '@services/game-manager.service';
 import { NotificationService } from '@services/notifications.service';
 import { BlackjackUtils } from '@utils/blackjack.utils';
 import { Observable, takeUntil, tap } from 'rxjs';
+import { CardListComponent } from '../card-list/card-list.component';
 
 @Component({
+  standalone: true,
+  imports: [ CommonModule, SpinnerDirective, CardListComponent],
   selector: 'app-blackjack',
   templateUrl: './blackjack.component.html',
   styleUrls: ['./blackjack.component.scss']
@@ -30,7 +35,6 @@ export class BlackjackComponent extends SubscriptionsBaseComponent {
   showCroupierLoading: boolean = false;
   showLoading: boolean = false;
   buttonLoading: boolean = false;
-  trackByIndex = TRACK_BY_INDEX_FUNCTION;
   private deckId!: string;
 
   constructor(
@@ -49,16 +53,16 @@ export class BlackjackComponent extends SubscriptionsBaseComponent {
       .subscribe(params => {
         this.deckId = params['deckId'];
         this.game = this.gameManagerService.getGameDetail(this.deckId) as GameModel; 
-        this.getInitialCards();
+        this.startPlayerTurn();
       });
   }
 
-  getInitialCards(): void {
+  startPlayerTurn(): void {
     this.showLoading = true;
     this.getCards(2).subscribe({
       next: response => {
         this.showLoading = false;
-        this.playerCards = this.formatCardsResponse(response.cards);
+        this.playerCards = this.blackjackUtils.formatCardsResponse(response.cards);
       },
       error: ()=>{
         this.showLoading = false;
@@ -77,7 +81,8 @@ export class BlackjackComponent extends SubscriptionsBaseComponent {
     this.getCards(1).subscribe({
       next: response => {
         this.buttonLoading = false;
-        this.playerCards = this.playerCards.concat(this.formatCardsResponse(response.cards, true));
+        this.playerCards = this.playerCards
+          .concat(this.blackjackUtils.formatCardsResponse(response.cards, true));
         this.updateScore();
       },
       error: ()=>{
@@ -102,7 +107,7 @@ export class BlackjackComponent extends SubscriptionsBaseComponent {
     this.playerCards = [];
     this.croupierCards = [];
 
-    this.getInitialCards();
+    this.startPlayerTurn();
   }
 
   shuffleCards(startNewGame: boolean = false): void {
@@ -125,7 +130,7 @@ export class BlackjackComponent extends SubscriptionsBaseComponent {
     this.getCards(2).subscribe({
       next: response => {
         this.showCroupierLoading = false;
-        this.croupierCards = this.formatCardsResponse(response.cards, true);
+        this.croupierCards = this.blackjackUtils.formatCardsResponse(response.cards, true);
         this.updateCroupierScore();
       },
       error: ()=>{
@@ -136,7 +141,8 @@ export class BlackjackComponent extends SubscriptionsBaseComponent {
 
   private croupierGetOtherCard(): void {
     this.getCards(1).subscribe(response => {
-      this.croupierCards = this.croupierCards.concat(this.formatCardsResponse(response.cards, true));
+      this.croupierCards = this.croupierCards
+        .concat(this.blackjackUtils.formatCardsResponse(response.cards, true));
       this.updateCroupierScore();
     });
   }
@@ -169,13 +175,6 @@ export class BlackjackComponent extends SubscriptionsBaseComponent {
     } else {
       setTimeout(()=> this.croupierGetOtherCard(), 1000);
     }
-  }
-
-  private formatCardsResponse(cards: CardInterface[], setVisible: boolean = false): CardInterface[] {
-    return cards.map((card)=>{
-      card.visible = setVisible;
-      return card;
-    });
   }
 
   private getCards(count: number): Observable<DrawCardsResponseInterface> {
